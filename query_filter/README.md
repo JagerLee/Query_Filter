@@ -21,9 +21,9 @@ question	label
 python data_preprocess.py
 ```
 
-- 标签值 data/label_dict.json
+- 标签值 save_model/label_dict.json
 ```
-{"medical": "__label__0", "nonmedical": "__label__1"}
+{"__label__0":"medical", "__label__1":"nonmedical"}
 ```
 
 - 训练集 data/seg.train
@@ -54,7 +54,7 @@ time of train: 0:00:01
 test: precision  0.975254730713246 , recall  0.975254730713246 , f-score  0.975254730713246
 ```
 
-- 模型保存 save_model/trainded_model.bin
+- 模型保存 save_model/model.bin
 
 # 预测
 ```
