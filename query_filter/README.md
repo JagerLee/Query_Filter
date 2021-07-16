@@ -79,3 +79,29 @@ nonmedical
 number of questions: 100000
 time of predict: 0:00:08
 ```
+# 模型调用
+
+fliter.py
+```
+class QueryFilter(path):
+	'''
+	path:str,模型保存路径,path/model.bin为模型,path/label_dict为标签值
+	'''
+	
+	def filter(query):
+	'''
+	query:str,查询语句
+	return:
+		query:医疗问题
+		False:非医疗问题
+	'''
+```
+
+example:
+```
+query = '糖尿病患者可以吃水果吗？'
+Q = QueryFilter('save_model')
+result = Q.filter(query)
+print(result) if result else '我只能回答医疗问题。'
+# 糖尿病患者可以吃水果吗？
+```
