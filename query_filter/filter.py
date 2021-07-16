@@ -8,6 +8,10 @@ from zhon.hanzi import punctuation
 
 class QueryFilter:
     def __init__(self, model_path):
+        '''
+        path:str,模型保存路径,path/model.bin为模型,path/label_dict为标签值
+        '''
+
         self.model = fasttext.load_model(model_path + '/model.bin')
         with open(model_path + '/label_dict.json') as f:
             self.label_dict = json.load(f)
@@ -24,6 +28,13 @@ class QueryFilter:
         return ' '.join(input)
 
     def filter(self, query):
+        '''
+        query:str,查询语句
+        return:
+        	query:医疗问题
+        	False:非医疗问题
+        '''
+
         result = self.model.predict(self._query2input(query))
 
         return query if self.label_dict[result[0][0]] == 'medical' else False
