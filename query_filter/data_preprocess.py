@@ -25,7 +25,7 @@ def save_label(df, path):
         label_set.add(label)
     label_dict = {}
     for i, label in enumerate(label_set):
-        label_dict[label] = '__label__' + str(i)
+        label_dict['__label__' + str(i)] = label
     with open(path, 'w') as f:
         json_str = json.dumps(label_dict, ensure_ascii=False)
         f.write('%s\n' % json_str)
@@ -52,12 +52,12 @@ def word_split(s, stop_words_list):
 
 def save_data(df, path):
     stop_words_list = stop_words('data/stopwords.txt')
-    with open('data/label_dict.json', encoding='gb18030') as f:
-        line = f.readline()
-        label_dict = json.loads(line)
+    with open(r'save_model/label_dict.json') as f:
+        label_dict = json.load(f)
+    keys = list(label_dict.keys())
     with open(path, 'w', encoding='utf-8') as f:
         for i in df.index:
-            label = label_dict[df['label'][i]]
+            label = keys[0] if label_dict[keys[0]] == df['label'][i] else keys[1]
             question = word_split(df['question'][i], stop_words_list)
             f.write(label + '\t')
             for i in range(len(question) - 1):
@@ -69,7 +69,7 @@ if __name__ == '__main__':
     train_path = 'data/seg.train'
     test_path = 'data/seg.test'
     data_path = 'data/question_data.csv'
-    label_path = 'data/label_dict.json'
+    label_path = 'save_model/label_dict.json'
     df = pd.read_csv(data_path, sep='\t', encoding='gbk', header=0)
     save_label(df, label_path)
     train_df, test_df = train_test_split(df)
