@@ -89,19 +89,25 @@ class QueryFilter(path):
 	'''
 	
 	def filter(query):
-	'''
-	query:str,查询语句
-	return:
-		query:医疗问题
-		False:非医疗问题
-	'''
+		'''
+        query:
+            str,查询语句
+            list,查询语句列表
+        return:
+        	query:医疗问题
+        	False:非医疗问题
+    	'''
 ```
 
 example:
 ```
-query = '糖尿病患者可以吃水果吗？'
 Q = QueryFilter('save_model')
-result = Q.filter(query)
-print(result) if result else '我只能回答医疗问题。'
+query1 = '糖尿病患者可以吃水果吗？'
+result = Q.filter(query1)
+print(result) if result else print("我只能回答医疗问题")
 # 糖尿病患者可以吃水果吗？
+query2 = ['我叫什么名字？', '糖尿病患者可以吃水果吗？']
+result = Q.filter(query2)
+print([q if q else "我只能回答医疗问题" for q in result])
+# ['我只能回答医疗问题', '糖尿病患者可以吃水果吗？']
 ```
