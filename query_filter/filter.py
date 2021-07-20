@@ -39,7 +39,7 @@ class QueryFilter:
             str,查询语句
             list,查询语句列表
         return:
-        	query:医疗问题
+            query:医疗问题
         	False:非医疗问题
         '''
         q_type = type(query)
@@ -61,6 +61,6 @@ if __name__ == '__main__':
     query2 = ['我叫什么名字？', '糖尿病患者可以吃水果吗？']
     Q = QueryFilter('save_model')
     result = Q.filter(query1)
-    print(result) if result else print("not a medical query")
+    print(result) if result else print("我只能回答医疗问题")
     result = Q.filter(query2)
-    print([q if q else "not a medical query" for q in result])
+    print([q if q else "我只能回答医疗问题" for q in result])
